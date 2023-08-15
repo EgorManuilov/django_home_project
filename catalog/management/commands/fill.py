@@ -14,10 +14,10 @@ class Command(BaseCommand):
             {'name': 'компьютерная акустика', 'description': 'колонки и гарнитуры для компьютера'}
         ]
 
-        # category_for_create = []
-        # for category_item in category_list:
-        #     category_for_create.append(
-        #         Category(**category_item)
-        #     )
-        #
-        # Category.objects.bulk_create(category_for_create)
+        category_for_create = []
+        for category_item in category_list:
+            category_for_create.append(
+                Category(**category_item)
+            )
+
+        Category.objects.bulk_create(category_for_create)

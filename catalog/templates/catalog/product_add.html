@@ -1,0 +1,39 @@
+{% extends 'catalog/base.html' %}
+
+{% block content%}
+
+<div class="row text-left">
+
+    <div>
+        <h1>Добавить товар</h1>
+    </div>
+
+    <form method="post" action="" class="form-floating">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            <label for="name">Название</label>
+            <input type="text" name="name" class="form-control" id="name" placeholder="Ваше имя" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="name">Описание</label>
+            <input type="text" name="description" class="form-control" id="name" placeholder="Немного, сколько сможете"
+                   required>
+        </div>
+
+        <div class="mb-3">
+            <label for="name">Категория</label>
+            <input type="text" name="category" class="form-control" id="name" placeholder=""
+                   required>
+        </div>
+
+        <div class="mb-3">
+            <label for="name">Цена</label>
+            <input type="text" name="price" class="form-control" id="name" placeholder="" required>
+        </div>
+
+        <button type="submit" class="btn btn-lg btn-block btn-outline-primary">Добавить товар</button>
+    </form>
+
+    {% endblock %}

@@ -1,0 +1,42 @@
+[
+  {
+    "model": "catalog.category",
+    "pk": 3,
+    "fields": {
+      "name": "мобильные телефоны",
+      "description": "интересные новинки и флагманские смартфоны"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 4,
+    "fields": {
+      "name": "ПК и ноутбуки",
+      "description": "лучшее для дома и работы"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 5,
+    "fields": {
+      "name": "оргтехника",
+      "description": "МФУ, принтеры и сканеры для широкого применения"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 6,
+    "fields": {
+      "name": "комплектующие",
+      "description": "железо, системы охлаждения, звуковые карты, корпуса для вашего компьютера"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 7,
+    "fields": {
+      "name": "компьютерная акустика",
+      "description": "колонки и гарнитуры для компьютера"
+    }
+  }
+]

@@ -18,7 +18,7 @@
                         <p class="card-text">
                             {{ object.description_prod }}
                         </p>
-                        <a href="{% url 'Product' object.id %}" class="btn btn-primary">Купить</a>
+                        <a href="{% url 'catalog:product' object.id %}" class="btn btn-primary">Купить</a>
                     </div>
                 </div>
             </div>

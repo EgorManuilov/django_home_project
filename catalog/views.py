@@ -1,13 +1,14 @@
 from django.shortcuts import render
+from django.urls import reverse_lazy
 from django.utils.datetime_safe import datetime
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView
 
 from catalog.models import Category, Product
 
 
 class ProductListView(ListView):
     model = Product
-    template_name = 'catalog/index.html'
+    template_name = 'catalog/material_list.html'
 
 
 def contacts(request):
@@ -42,3 +43,9 @@ def product_add(request):
         Product.objects.bulk_create(product_for_create)
 
     return render(request, 'catalog/great_prod.html')
+
+
+class ProductCreateView(CreateView):
+    model = Product
+    fields = ProductForm
+    success_url = reverse_lazy('catalog:index')

@@ -24,6 +24,8 @@ class Product(models.Model):
     date_creation = models.DateField(auto_now_add=True, verbose_name='дата создания')
     last_modified_date = models.DateField(auto_now_add=True, verbose_name='дата последнего изменения')
 
+    is_active = models.BooleanField(default=True)
+
     def __str__(self):
         return f'{self.name}, ({self.category})'
 

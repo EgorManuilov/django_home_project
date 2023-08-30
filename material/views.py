@@ -4,10 +4,12 @@ from pytils.translit import slugify
 
 from material.models import Material
 
+NULLABLE = {'blank': True, 'null': True}
+
 
 class MaterialCreateView(CreateView):
     model = Material
-    fields = ('title', 'body',)
+    fields = ('title', 'body', 'preview')
     success_url = reverse_lazy('material:list')
 
 

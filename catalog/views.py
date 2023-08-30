@@ -1,14 +1,13 @@
-from django.shortcuts import render
-from django.urls import reverse_lazy
+from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse_lazy, reverse
 from django.utils.datetime_safe import datetime
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from catalog.models import Category, Product
 
 
 class ProductListView(ListView):
     model = Product
-    template_name = 'catalog/material_list.html'
 
 
 def contacts(request):
@@ -23,7 +22,6 @@ def contacts(request):
 
 class ProductDetailView(DetailView):
     model = Product
-    template_name = 'catalog/product.html'
 
 
 def product_add(request):
@@ -47,5 +45,28 @@ def product_add(request):
 
 class ProductCreateView(CreateView):
     model = Product
-    fields = ProductForm
+    fields = 'avatar'
     success_url = reverse_lazy('catalog:index')
+
+
+class ProductUpdateView(UpdateView):
+    model = Product
+    fields = ('object.title', 'avatar')
+    success_url = reverse_lazy('catalog:index')
+
+
+class ProductDeleteView(DeleteView):
+    model = Product
+    success_url = reverse_lazy('catalog:index')
+
+
+def toggle_activity(request, pk):
+    product_item = get_object_or_404(Product, pk=pk)
+    if product_item.is_active:
+        product_item.is_active = False
+    else:
+        product_item.is_active = True
+
+    product_item.save()
+
+    return redirect(reverse('catalog:index'))

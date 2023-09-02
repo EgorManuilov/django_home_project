@@ -40,7 +40,7 @@ def product_add(request):
         )
         Product.objects.bulk_create(product_for_create)
 
-    return render(request, 'catalog/great_prod.html')
+    return render(request, 'catalog/product_add.html')
 
 
 class ProductCreateView(CreateView):

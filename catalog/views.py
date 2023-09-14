@@ -52,7 +52,7 @@ class ProductCreateView(CreateView):
 class ProductUpdateView(UpdateView):
     model = Product
     fields = ('object.title', 'avatar')
-    success_url = reverse_lazy('catalog:index')
+    success_url = reverse_lazy('catalog:product_add')
 
 
 class ProductDeleteView(DeleteView):

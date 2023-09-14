@@ -2,6 +2,7 @@
 
 {% block content%}
 
+
 <div class="row text-left">
 
     <div>
@@ -16,23 +17,32 @@
             <input type="text" name="name" class="form-control" pk="name" placeholder="" required>
         </div>
 
+
         <div class="mb-3">
-            <label for="name">Описание</label>
+            <label for="description">Описание</label>
             <input type="text" name="description" class="form-control" pk="name" placeholder=""
                    required>
         </div>
 
         <div class="mb-3">
-            <label for="name">Категория</label>
+            <label for="category">Категория</label>
             <input type="text" name="category" class="form-control" pk="name" placeholder=""
                    required>
         </div>
 
         <div class="mb-3">
-            <label for="name">Цена</label>
+            <label for="price">Цена</label>
             <input type="text" name="price" class="form-control" pk="name" placeholder="" required>
         </div>
 
+
         <button type="submit" class="btn btn-lg btn-block btn-outline-primary">Добавить товар</button>
+        <body>
+        <img src="ultrabook.jpg"
+             alt="Notebook Intel"
+             width="400"
+             height="341"
+        </body>
+        >
     </form>
     {% endblock %}

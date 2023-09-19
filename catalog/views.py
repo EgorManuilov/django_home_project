@@ -11,6 +11,7 @@ class ProductListView(ListView):
     model = Product
     template_name = 'catalog/product_list.html'
 
+
 def contacts(request):
     if request.method == 'POST':
         name = request.POST.get('name')
@@ -25,30 +26,11 @@ class ProductDetailView(DetailView):
     model = Product
     template_name = 'catalog/product.html'
 
-def product_add(request):
-    product_for_create = []
-    if request.method == 'POST':
-        product = {
-            'name_prod': request.POST.get('name'),
-            'description_prod': request.POST.get('description'),
-            'category_prod': request.POST.get('category'),
-            'price_prod': request.POST.get('price'),
-            'data_create_prod': datetime.now(),
-            'data_change_prod': datetime.now()
-        }
-        product_for_create.append(
-            Product(**product)
-        )
-        Product.objects.bulk_create(product_for_create)
-
-    return render(request, 'catalog/product_add.html')
-
 
 class ProductCreateView(CreateView):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('catalog:index')
-
 
     # def form_valid(self, form):
     #     self.object = form.save()

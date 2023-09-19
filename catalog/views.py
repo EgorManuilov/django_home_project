@@ -3,12 +3,13 @@ from django.urls import reverse_lazy, reverse
 from django.utils.datetime_safe import datetime
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
+from catalog.forms import ProductForm
 from catalog.models import Category, Product
 
 
 class ProductListView(ListView):
     model = Product
-
+    template_name = 'catalog/product_list.html'
 
 def contacts(request):
     if request.method == 'POST':
@@ -22,7 +23,7 @@ def contacts(request):
 
 class ProductDetailView(DetailView):
     model = Product
-
+    template_name = 'catalog/product.html'
 
 def product_add(request):
     product_for_create = []
@@ -45,8 +46,16 @@ def product_add(request):
 
 class ProductCreateView(CreateView):
     model = Product
-    fields = 'avatar'
+    form_class = ProductForm
     success_url = reverse_lazy('catalog:index')
+
+
+    # def form_valid(self, form):
+    #     self.object = form.save()
+    #     self.object.user_boss = self.request.user
+    #     self.object.save()
+    #
+    #     return super().form_valid(form)
 
 
 class ProductUpdateView(UpdateView):

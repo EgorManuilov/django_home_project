@@ -8,7 +8,7 @@
                 <div class="card-body">
                     <form method="post">
                         {% csrf_token %}
-                        <p>Хотите удалить запись "{{ object.title }}"?</p>
+                        <p>Хотите удалить товар "{{ object.title }}"?</p>
                         <button type="submit" class="btn btn-succes">Подтвердить</button>
                         <a href="{% url 'material:list' %}" class="btn btn-warning">Отмена</a>
                     </form>

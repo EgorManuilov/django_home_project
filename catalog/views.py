@@ -11,6 +11,11 @@ class ProductListView(ListView):
     model = Product
     template_name = 'catalog/product_list.html'
 
+    def get_queryset(self):
+        if self.request.user.is_authenticated:
+            return Product.objects.filter(owner=self.request.user)
+        return []
+
 
 def contacts(request):
     if request.method == 'POST':
@@ -32,18 +37,18 @@ class ProductCreateView(CreateView):
     form_class = ProductForm
     success_url = reverse_lazy('catalog:index')
 
-    # def form_valid(self, form):
-    #     self.object = form.save()
-    #     self.object.user_boss = self.request.user
-    #     self.object.save()
-    #
-    #     return super().form_valid(form)
+    def form_valid(self, form):
+        self.object = form.save()
+        self.object.user_boss = self.request.user
+        self.object.save()
+
+        return super().form_valid(form)
 
 
 class ProductUpdateView(UpdateView):
     model = Product
-    fields = ('object.title', 'avatar')
-    success_url = reverse_lazy('catalog:product_add')
+    fields = "__all__"
+    success_url = reverse_lazy('catalog:index')
 
 
 class ProductDeleteView(DeleteView):

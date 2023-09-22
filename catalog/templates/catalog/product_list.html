@@ -19,7 +19,12 @@
                         <p class="card-text">
                             {{ object.description }}
                         </p>
-                        <a href="{% url 'catalog:product' object.id %}" class="btn btn-primary">Купить</a>
+                        <a href="{% url 'catalog:product' object.pk %}" type="button"
+                           class="btn btn-primary">Купить</a>
+                        <a href="{% url 'catalog:update_product' object.pk %}" type="button"
+                           class="btn btn-primary">Изменить</a>
+                        <a href="{% url 'catalog:delete_product' object.pk %}" type="button"
+                           class="btn btn-primary">Удалить</a>
                     </div>
                 </div>
             </div>

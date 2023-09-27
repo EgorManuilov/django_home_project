@@ -49,6 +49,7 @@ class ProductUpdateView(UpdateView):
     model = Product
     fields = "__all__"
     success_url = reverse_lazy('catalog:index')
+    form_class = ProductForm
 
 
 class ProductDeleteView(DeleteView):

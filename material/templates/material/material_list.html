@@ -8,27 +8,24 @@
     </div>
 
     {% for object in object_list %}
-    <div class="col-3">
-        <div class="card mb-4 box-shadow">
-            <div class="card">
-                <div class="card-body">
-                    <h3 class="card-title">{{ object.name_prod }}</h3>
-                    <h4 class="card-title pricing-card-title">{{ object.price_prod }} руб.</h4>
-                    <img src="/media/6.1.jpeg" alt="Card image">
-                    <p class="card-text">
-                        {{ object.description_prod }}
-                    </p>
-                    <a href="{% url 'material:view' object.pk %}" class="btn btn-primary">Читать</a>
-                    <a href="{% url 'blog:edit' object.pk %}" class="btn btn-secondary mb-4">Изменить</a>
-                    <a href="{% url 'blog:delete' object.pk %}" class="btn btn-danger">Удалить</a>
+        <div class="col-3">
+            <div class="card mb-4 box-shadow">
+                <div class="card">
+                    <div class="card-body" >
+                        <h3 class="card-title">{{ object.title }}</h3>
+                        <img src="/media/{{ object.preview }}" alt="Card image" class="mb-4">
+
+                        <a href="{% url 'material:view' object.pk %}" class="btn btn-primary mb-4">Читать</a>
+                        <a href="{% url 'material:edit' object.pk %}" class="btn btn-secondary mb-4">Изменить</a>
+                        <a href="{% url 'material:delete' object.pk %}" class="btn btn-danger">Удалить</a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    {% if forloop.counter|divisibleby:"4" and not forloop.last %}
-</div>
-<div class="row text-center">
-    {% endif %}
+        {% if forloop.counter|divisibleby:"4" and not forloop.last %}
+            </div>
+    <div class="row text-center">
+        {% endif %}
     {% endfor %}
-</div>
-{% endblock %}
+    </div>
+    {% endblock %}

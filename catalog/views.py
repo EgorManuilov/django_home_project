@@ -1,4 +1,7 @@
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.forms import inlineformset_factory
+from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy, reverse
 from django.utils.datetime_safe import datetime
@@ -33,7 +36,7 @@ class ProductDetailView(DetailView):
     template_name = 'catalog/product.html'
 
 
-class ProductCreateView(CreateView):
+class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('catalog:index')
@@ -46,11 +49,18 @@ class ProductCreateView(CreateView):
         return super().form_valid(form)
 
 
-class ProductUpdateView(UpdateView):
+class ProductUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Product
     form_class = ProductForm
     # fields = "__all__"
     success_url = reverse_lazy('catalog:index')
+    permission_required = 'catalog.change_product'
+
+    def get_object(self, queryset=None):
+        self.object = super().get_object(queryset)
+        if self.object.owner != self.request.user or not self.request.user.is_staff or not self.request.user.is_superuser:
+            return HttpResponse(status=403)
+        return self.object
 
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
@@ -76,18 +86,22 @@ class ProductUpdateView(UpdateView):
         return super().form_valid(form)
 
 
-class ProductDeleteView(DeleteView):
+class ProductDeleteView(LoginRequiredMixin, DeleteView):
     model = Product
     success_url = reverse_lazy('catalog:index')
 
 
+@login_required
 def toggle_activity(request, pk):
     product_item = get_object_or_404(Product, pk=pk)
-    if product_item.is_active:
-        product_item.is_active = False
-    else:
-        product_item.is_active = True
+    current_user = request.user
+    if current_user.is_staff or product_item.owner.id == current_user.id or current_user.is_superuser:
+        if product_item.is_active:
+            product_item.is_active = False
+        else:
+            product_item.is_active = True
 
-    product_item.save()
+        product_item.save()
 
-    return redirect(reverse('catalog:index'))
+        return redirect(reverse('catalog:index'))
+    return HttpResponse(status=403)

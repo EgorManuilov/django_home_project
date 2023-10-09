@@ -1,5 +1,6 @@
 from django.db import models
 
+from users.models import User
 
 NULLABLE = {'blank': True, 'null': True}
 
@@ -25,6 +26,7 @@ class Product(models.Model):
     date_creation = models.DateField(auto_now_add=True, verbose_name='дата создания')
     last_modified_date = models.DateField(auto_now_add=True, verbose_name='дата последнего изменения')
     owner = models.ForeignKey("users.User", on_delete=models.SET_NULL, **NULLABLE, verbose_name='владелец')
+    # user = models.ForeignKey(User, verbose_name='пользователь', on_delete=models.CASCADE)
 
     is_active = models.BooleanField(default=True)
 
@@ -48,3 +50,17 @@ class Version(models.Model):
     class Meta:
         verbose_name = 'версия'
         verbose_name_plural = 'версии'
+
+
+class Post(models.Model):
+    title = models.CharField(max_length=250)
+    body = models.TextField()
+    is_published = models.BooleanField(default=False)
+
+    class Meta:
+        verbose_name = 'пост'
+        verbose_name_plural = 'посты'
+        # permissions = [
+        #     'set_published',
+        #     'Can publish posts'
+        # ]

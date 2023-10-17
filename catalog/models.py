@@ -52,15 +52,3 @@ class Version(models.Model):
         verbose_name_plural = 'версии'
 
 
-class Post(models.Model):
-    title = models.CharField(max_length=250)
-    body = models.TextField()
-    is_published = models.BooleanField(default=False)
-
-    class Meta:
-        verbose_name = 'пост'
-        verbose_name_plural = 'посты'
-        # permissions = [
-        #     'set_published',
-        #     'Can publish posts'
-        # ]

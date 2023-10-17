@@ -9,4 +9,4 @@ cover/
 .coverage.*
 .cache
 
-env
+.env

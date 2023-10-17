@@ -33,7 +33,27 @@ def contacts(request):
 
 class ProductDetailView(DetailView):
     model = Product
-    template_name = 'catalog/product.html'
+    template_name = 'catalog:product.html'
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        queryset = queryset.filter(slug=self.kwargs.get('slug'))
+        return queryset
+
+    def get_context_data(self, *args, **kwargs):
+        context_data = super().get_context_data(*args, **kwargs)
+        category_item = Product.objects.get(slug=self.kwargs.get('slug'))
+        context_data['title'] = f'Товар из категории: {category_item.category}'
+
+        active_version = Version.objects.filter(product=self.object, is_active=True).last()
+        if active_version:
+            context_data['active_version_number'] = active_version.number
+            context_data['active_version_name'] = active_version.name
+        else:
+            context_data['active_version_number'] = None
+            context_data['active_version_name'] = None
+
+        return context_data
 
 
 class ProductCreateView(LoginRequiredMixin, CreateView):

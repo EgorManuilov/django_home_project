@@ -1,0 +1,42 @@
+{% extends 'catalog/base.html' %}
+
+{% block content%}
+
+<div class="col-6">
+    <div class="card">
+        <div class="card-header">
+            <div class="card-title">
+                Информация о товаре
+            </div>
+
+        </div>
+        <div class="card-body">
+            {% csrf_token %}
+
+        </div>
+    </div>
+
+    <div class="col-6">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">
+                    <h3 class="card-title">
+                        {% if object %}
+                        Версии продуктов
+                        {% endif %}
+                    </h3>
+                </div>
+            </div>
+
+            <div class="card-body">
+
+
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+{% endblock %}
